@@ -1,0 +1,51 @@
+
+
+.game-board {
+	width: 600px;
+	height: 600px;
+	margin: 0 auto;
+    background-color: #34495e;
+    color: #fff;
+    border: 6px solid #2c3e50;
+    border-radius: 10px;
+	
+	display: grid;
+	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.box {
+    border: 6px solid #2c3e50;
+    border-radius: 2px;
+    /*font-family: Helvetica;*/
+    font-weight: bold;
+    font-size: 6em; /*4em for secular one, 6em for sono*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player1 {
+    color: #FF8D68;
+}
+
+.player2 {
+    color: #8DBD61;
+}
+
+.stats {
+    text-align: center;
+}
+
+body {
+    font-family: "Sono", sans-serif; /*Secular One or Sono*/
+}
+
+/*
+.row {
+    border: 6px solid green;
+}
+
+.col {
+    border: 6px solid red;
+}
+*/

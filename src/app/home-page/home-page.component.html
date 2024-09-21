@@ -1,0 +1,77 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sono|Secular+One|Press+Start+2P|Rubik+Mono+One|Bowlby+One+SC">
+    <!--
+    <script src="https://kit.fontawesome.com/0f62dca52d.js" crossorigin="anonymous"></script>
+    -->
+</head>
+
+<body>
+    <div class="container">
+        
+        <h1 class="text-center">Tic<span class="player1">-</span>Tac<span class="player2">-</span>Toe: Gesture Edition</h1>
+        
+        <div class="row">
+            <div class="col-auto me-auto">
+                <ul>
+                Gestures:
+                    <li>Note: Try to keep face out of camera for better gesture detection</li> 
+                    <li>Start game: Two open hands</li>
+                    <li>Move position on board: Closed hand (or hand pinching)</li>
+                    <li>Play turn: Open hand</li>
+                    <li>Reset board (after round is over): Two hands pointing</li>
+                    <li>Reset game (for two other players to start): Two closed hands</li>
+                    <li>Pause timer: One open & one closed</li>
+                    <li>Resume timer: One pointing & one closed</li>
+                </ul>
+            </div>
+
+            <div class="col-auto me-auto">
+                <app-handtracker (onPrediction)="prediction($event)"></app-handtracker>
+                <div [innerHTML]="gesture"></div>
+            </div>
+        </div>
+
+        <!--
+        <div>{{minX}}</div>
+        <div>{{maxX}}</div>
+        <div>{{minY}}</div>
+        <div>{{maxY}}</div>
+        -->
+
+        <div class="stats">
+            <h1><span class="player1">{{p1score}}</span> : <span class="player2">{{p2score}}</span></h1>
+            <h4>Player <span [ngClass]="(state==1)?'player1' : 'player2'">{{state}}</span>'s turn</h4>
+            <h5>Time left for turn: {{timer}}</h5>
+            <h5>Round Winner: {{winner}}</h5>
+        </div>
+
+        <div class="game-board">
+            <div class="box" [style.color]="styleText[0][0]" [ngStyle]="{border: (styleBorder[0][0]=='yellow')?'6px solid #FFCB3E' : (styleBorder[0][0]=='red')?'6px solid #FF8D68' : (styleBorder[0][0]=='green')?'6px solid #8DBD61' : '6px solid #2c3e50'}">{{board[0][0]}}</div>
+            <div class="box" [style.color]="styleText[0][1]" [ngStyle]="{border: (styleBorder[0][1]=='yellow')?'6px solid #FFCB3E' : (styleBorder[0][1]=='red')?'6px solid #FF8D68' : (styleBorder[0][1]=='green')?'6px solid #8DBD61' : '6px solid #2c3e50'}">{{board[0][1]}}</div>
+            <div class="box" [style.color]="styleText[0][2]" [ngStyle]="{border: (styleBorder[0][2]=='yellow')?'6px solid #FFCB3E' : (styleBorder[0][2]=='red')?'6px solid #FF8D68' : (styleBorder[0][2]=='green')?'6px solid #8DBD61' : '6px solid #2c3e50'}">{{board[0][2]}}</div>
+            <div class="box" [style.color]="styleText[1][0]" [ngStyle]="{border: (styleBorder[1][0]=='yellow')?'6px solid #FFCB3E' : (styleBorder[1][0]=='red')?'6px solid #FF8D68' : (styleBorder[1][0]=='green')?'6px solid #8DBD61' : '6px solid #2c3e50'}">{{board[1][0]}}</div>
+            <div class="box" [style.color]="styleText[1][1]" [ngStyle]="{border: (styleBorder[1][1]=='yellow')?'6px solid #FFCB3E' : (styleBorder[1][1]=='red')?'6px solid #FF8D68' : (styleBorder[1][1]=='green')?'6px solid #8DBD61' : '6px solid #2c3e50'}">{{board[1][1]}}</div>
+            <div class="box" [style.color]="styleText[1][2]" [ngStyle]="{border: (styleBorder[1][2]=='yellow')?'6px solid #FFCB3E' : (styleBorder[1][2]=='red')?'6px solid #FF8D68' : (styleBorder[1][2]=='green')?'6px solid #8DBD61' : '6px solid #2c3e50'}">{{board[1][2]}}</div>
+            <div class="box" [style.color]="styleText[2][0]" [ngStyle]="{border: (styleBorder[2][0]=='yellow')?'6px solid #FFCB3E' : (styleBorder[2][0]=='red')?'6px solid #FF8D68' : (styleBorder[2][0]=='green')?'6px solid #8DBD61' : '6px solid #2c3e50'}">{{board[2][0]}}</div>
+            <div class="box" [style.color]="styleText[2][1]" [ngStyle]="{border: (styleBorder[2][1]=='yellow')?'6px solid #FFCB3E' : (styleBorder[2][1]=='red')?'6px solid #FF8D68' : (styleBorder[2][1]=='green')?'6px solid #8DBD61' : '6px solid #2c3e50'}">{{board[2][1]}}</div>
+            <div class="box" [style.color]="styleText[2][2]" [ngStyle]="{border: (styleBorder[2][2]=='yellow')?'6px solid #FFCB3E' : (styleBorder[2][2]=='red')?'6px solid #FF8D68' : (styleBorder[2][2]=='green')?'6px solid #8DBD61' : '6px solid #2c3e50'}">{{board[2][2]}}</div>
+        </div>
+
+        <!--
+        <div class="game-board">
+            <div *ngFor="let row of board; let i = index">
+                <div *ngFor="let column of row; let j = index">
+                    <div class="box" [style.color]="styleText[i][j]" [ngStyle]="{border: (styleBorder[i][j]=='yellow')?'6px solid #FFCB3E' : (styleBorder[i][j]=='red')?'6px solid #FF8D68' : (styleBorder[i][j]=='green')?'6px solid #8DBD61' : '6px solid #2c3e50'}">{{board[i][j]}}</div>
+                </div>
+            </div>
+        </div>
+        -->
+
+    </div>
+</body>
+</html>
