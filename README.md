@@ -4,7 +4,7 @@
 ## Install the TypeScript Transpiler
 `npm install -g typescript`
 
-## Install the Angular Command Line Interface globally
+## Install the Angular Command Line Interface
 `npm install -g @angular/cli`
 
 ## Install the dependencies
