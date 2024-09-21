@@ -1,5 +1,7 @@
 ## How to run
-```ng serve --open```
+```
+ng serve --open
+```
 
 ## Resources used
 - https://codepen.io/shammadahmed/pen/JOWEGW
