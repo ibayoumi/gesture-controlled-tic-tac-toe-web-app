@@ -1,4 +1,16 @@
-## How to run
+## Install npm
+[npm installation instructions](https://docs.npmjs.com/getting-started)
+
+## Install the TypeScript Transpiler
+`npm install -g typescript`
+
+## Install the Angular Command Line Interface globally
+`npm install -g @angular/cli`
+
+## Install the dependencies
+`npm install`
+
+## Run the app
 `ng serve --open`
 
 ## Resources used
